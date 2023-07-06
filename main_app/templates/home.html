@@ -1,0 +1,33 @@
+{% extends 'base.html' %} 
+{% block content %}
+<div class="home__playlists">
+    {% for playlist in playlists %}
+
+        <div class="playlist mb-5">
+            <h3 class="title is-3 has-text-success">{{playlist.title}}</h3>
+            <hr />
+
+            {% for character in playlist.characters.all %}
+
+                <div class="song">
+                    <span>{{forloop.counter}}</span>
+                    <span><b>{{character.title}}</b></span>
+                    <span>{{character.get_length}}</span>
+                </div>
+
+                <a href="{% url 'playlist_character_assoc' playlist.pk character.pk %}?assoc=remove"
+                class="button is-danger is-outlined">
+                 <span class="icon is-small">
+                     <i class="fas fa-times"></i>
+                 </span>
+             </a>
+         </span>
+     </div>
+
+            {% endfor %}
+        </div>
+    {% empty %} 
+        <div class="playlist mb-5">"There are no characters in this playlist"</div>
+    {% endfor %}
+</div>
+{% endblock %}
